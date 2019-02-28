@@ -12,12 +12,15 @@ class GrAlg(BaseAlg):
     def _first_set(self):
         X = []
         last_v_slide = None
+        slide_idx = 0
         for i, p in enumerate(self.P):
             if p.t == 'H':
-                X.append(Slide(p))
+                X.append(Slide(p, idx=slide_idx))
+                slide_idx += 1
             elif p.t == 'V':
                 if not last_v_slide:
-                    last_v_slide = Slide(p, _type=Slide.TYPE_COMBINED)
+                    last_v_slide = Slide(p, _type=Slide.TYPE_COMBINED, idx=slide_idx)
+                    slide_idx += 1
                     X.append(last_v_slide)
                 else:
                     last_v_slide.add_photo(p)
@@ -25,13 +28,12 @@ class GrAlg(BaseAlg):
         return X
 
     def _find_best(self, show, X):
-
-        cur = self.score(show)
+        cur = 0
         b_x = None
-        for x in X[:100]:
+        for x in X[:10]:
             # show_n = show[:]
             # show_n.append(x)
-            score = cur + self.score([show[-1], x])
+            score = self.score([show[-1], x])
             if b_x is None or cur < score:
                 b_x = x
                 cur = score

@@ -40,7 +40,7 @@ def read_file(file_in):
     return photos
 
 
-if __name__ == '__main__':
+def main():
     photos = read_file(IN_FILE)
 
     print(f"File {IN_FILE} loaded")
@@ -56,10 +56,10 @@ if __name__ == '__main__':
     long = time.time() - start
 
     print(f"""
-        Greedy: 
-         - score: {ga.best_score}
-         - time: {long}
-        """)
+            Greedy: 
+             - score: {ga.best_score}
+             - time: {long}
+            """)
 
     ga.output(ga.best_show)
 
@@ -74,9 +74,16 @@ if __name__ == '__main__':
     long = time.time() - start
 
     print(f"""
-    Local search: 
-     - score: {ls.best_score}
-     - time: {long}
-    """)
+        Local search: 
+         - score: {ls.best_score}
+         - time: {long}
+        """)
 
     ls.output(ls.best_show)
+
+
+if __name__ == '__main__':
+    import cProfile
+
+    cProfile.run('main()')
+    # main()
