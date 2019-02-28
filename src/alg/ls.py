@@ -70,6 +70,6 @@ class LSAlg(BaseAlg):
         self.best_show = best_show
         self.best_score = self.score(best_show)
         self.timer = time.time()
-        # score, show = self._2opt_next(self.best_score, best_show)
-        score, show = self._2opt_best(self.best_score, best_show)
+        score, show = self._2opt_next(self.best_score, best_show)
+        # score, show = self._2opt_best(self.best_score, best_show)
         self.best_score, self.best_show = score, show
