@@ -9,7 +9,7 @@ print(f"Working with file {IN_FILE}")
 
 
 class Photo(object):
-    def __init__(self, t, tags):
+    def __init__(self, t, tags, i):
         if not isinstance(t, str) or (t != 'H' and t != 'V'):
             raise ValueError
 
@@ -18,6 +18,7 @@ class Photo(object):
 
         self.t = t
         self.tags = tags
+        self.i = i
 
 
 def read_file(file_in):
@@ -27,9 +28,9 @@ def read_file(file_in):
 
     t_v = 0
 
-    for line in l[1:]:
+    for i, line in enumerate(l[1:]):
         s_l = line.split()
-        photos.append(Photo(s_l[0], set(s_l[2:])))
+        photos.append(Photo(s_l[0], set(s_l[2:]), i))
         if s_l[0] == 'V':
             t_v += 1
 
