@@ -45,13 +45,31 @@ if __name__ == '__main__':
 
     print(f"File {IN_FILE} loaded")
 
-    ls = GrAlg(photos)
+    ga = GrAlg(photos)
+
+    print("Greedy initiated")
+
+    start = time.time()
+
+    ga.solve()
+
+    long = time.time() - start
+
+    print(f"""
+        Greedy: 
+         - score: {ga.best_score}
+         - time: {long}
+        """)
+
+    ga.output(ga.best_show)
+
+    ls = LSAlg(photos)
 
     print("LS initiated")
 
     start = time.time()
 
-    ls.solve()
+    ls.solve(ga.best_show)
 
     long = time.time() - start
 

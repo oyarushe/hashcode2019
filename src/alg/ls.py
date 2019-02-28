@@ -1,3 +1,4 @@
+import time
 from alg.base import BaseAlg
 from entities.slide import Slide
 
@@ -8,6 +9,7 @@ class LSAlg(BaseAlg):
         self.N = len(P)
         self.best_score = 0
         self.best_show = []
+        self.timer = 0
 
     def _first_set(self):
         X = []
@@ -25,6 +27,10 @@ class LSAlg(BaseAlg):
         return X
 
     def _2opt_next(self, best, current):
+        if time.time() - self.timer > 20:
+            self.output(current)
+            print("Dumped")
+            self.timer = time.time()
         n = len(current)
         for i in range(1, n - 1):
             for j in range(i + 2, n + 1):
@@ -37,9 +43,9 @@ class LSAlg(BaseAlg):
                     return self._2opt_next(score, new_path)
         return best, current
 
-    def solve(self, *args, **kwargs):
-        X = self._first_set()
-        self.best_show = X
-        self.best_score = self.score(X)
-        score, show = self._2opt_next(self.best_score, X)
+    def solve(self, best_show, *args, **kwargs):
+        self.best_show = best_show
+        self.best_score = self.score(best_show)
+        self.timer = time.time()
+        score, show = self._2opt_next(self.best_score, best_show)
         self.best_score, self.best_show = score, show

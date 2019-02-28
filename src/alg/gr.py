@@ -29,9 +29,9 @@ class GrAlg(BaseAlg):
         cur = self.score(show)
         b_x = None
         for x in X[:100]:
-            show_n = show[:]
-            show_n.append(x)
-            score = cur + self.score(show_n[-2:])
+            # show_n = show[:]
+            # show_n.append(x)
+            score = cur + self.score([show[-1], x])
             if b_x is None or cur < score:
                 b_x = x
                 cur = score
