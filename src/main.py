@@ -5,4 +5,4 @@ from configs.logger import print
 
 IN_FILE = os.path.join(INPUT_PATH, sys.argv[1])
 
-print("Working with file")
+print(f"Working with file {IN_FILE}")
