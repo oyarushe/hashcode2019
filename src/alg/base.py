@@ -1,6 +1,7 @@
 from path import OUTPUT_PATH
 import sys
 import os
+import time
 
 
 class BaseAlg:
@@ -20,6 +21,11 @@ class BaseAlg:
         return s
 
     def output(self, show):
-        with open(os.path.join(OUTPUT_PATH, sys.argv[1])):
-            pass
+        result = [str(len(show))]
+        for slide in show:
+            result.append(" ".join([photo.i for photo in slide.photos]))
+        with open(os.path.join(OUTPUT_PATH, f"{sys.argv[1]}_{int(time.time())}"), 'w') as f:
+            f.writelines(result)
+
+
 
