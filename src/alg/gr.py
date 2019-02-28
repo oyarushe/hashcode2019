@@ -31,8 +31,6 @@ class GrAlg(BaseAlg):
         cur = 0
         b_x = None
         for x in X[:10]:
-            # show_n = show[:]
-            # show_n.append(x)
             score = self.score([show[-1], x])
             if b_x is None or cur < score:
                 b_x = x

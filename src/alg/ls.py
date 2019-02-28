@@ -11,21 +11,6 @@ class LSAlg(BaseAlg):
         self.best_show = []
         self.timer = 0
 
-    def _first_set(self):
-        X = []
-        last_v_slide = None
-        for i, p in enumerate(self.P):
-            if p.t == 'H':
-                X.append(Slide(p))
-            elif p.t == 'V':
-                if not last_v_slide:
-                    last_v_slide = Slide(p, _type=Slide.TYPE_COMBINED)
-                    X.append(last_v_slide)
-                else:
-                    last_v_slide.add_photo(p)
-                    last_v_slide = None
-        return X
-
     def _2opt_next(self, best, current):
         if time.time() - self.timer > 60:
             self.output(current)
@@ -33,11 +18,17 @@ class LSAlg(BaseAlg):
             self.timer = time.time()
         n = len(current)
         for i in range(1, n - 1):
-            for j in range(i + 2, n + 1):
-                new_path = current[:]
-                new_path[i:j] = current[j - 1:i - 1:-1]
-                score = self.score(new_path)
-                if score > best:
+            for j in range(i + 2, n):
+                old_local = self.score(current[i-1:i+1]) + self.score(current[j-1:j+1])
+                new_local = self.score(
+                    [current[i-1], current[j-1]]
+                ) + self.score(
+                    [current[i], current[j]]
+                )
+                if new_local > old_local:
+                    new_path = current[:]
+                    new_path[i:j] = current[j - 1:i - 1:-1]
+                    score = best - old_local + new_local
                     # update the solution history
                     print(f"New best: {score} (+{score - best})")
                     return self._2opt_next(score, new_path)

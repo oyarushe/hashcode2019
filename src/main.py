@@ -83,7 +83,7 @@ def main():
 
 
 if __name__ == '__main__':
-    import cProfile
-
-    cProfile.run('main()')
-    # main()
+    # import cProfile
+    #
+    # cProfile.run('main()')
+    main()

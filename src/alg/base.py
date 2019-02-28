@@ -19,15 +19,14 @@ class BaseAlg:
             len(r.tags - l.tags)
         ])
 
+    def _pairs(self, show):
+        return zip(show, show[1:])
+
     def score(self, show: [Slide]):
         if len(show) < 2:
             return 0
 
-        s = 0
-        for l, r in zip(show, show[1:]):
-            s += self._dist(l, r)
-
-        return s
+        return sum(self._dist(l, r) for l, r in self._pairs(show))
 
     def output(self, show):
         result = [str(len(show)) + "\n"]
