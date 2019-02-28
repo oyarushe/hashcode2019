@@ -4,6 +4,7 @@ import time
 from path import INPUT_PATH
 from configs.logger import print
 from alg.ls import LSAlg
+from alg.gr import GrAlg
 
 IN_FILE = os.path.join(INPUT_PATH, sys.argv[1])
 
@@ -44,7 +45,7 @@ if __name__ == '__main__':
 
     print(f"File {IN_FILE} loaded")
 
-    ls = LSAlg(photos)
+    ls = GrAlg(photos)
 
     print("LS initiated")
 

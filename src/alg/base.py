@@ -11,6 +11,10 @@ class BaseAlg:
         raise NotImplementedError
 
     def score(self, show: [Slide]):
+
+        if len(show) < 2:
+            return 0
+
         s = 0
         for l, r in zip(show, show[1:]):
             s += min([
