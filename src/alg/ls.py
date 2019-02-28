@@ -30,14 +30,16 @@ class LSAlg(BaseAlg):
             for j in range(i + 2, n + 1):
                 new_path = current[:]
                 new_path[i:j] = current[j - 1:i - 1:-1]
-                if self.score(new_path) > best:
+                score = self.score(new_path)
+                if score > best:
                     # update the solution history
-
-                    return self._2opt_next(self.score(new_path), new_path)
+                    print("New best: {score} (+{score - best})")
+                    return self._2opt_next(score, new_path)
         return best, current
 
     def solve(self, *args, **kwargs):
         X = self._first_set()
+        self.best_show = X
         self.best_score = self.score(X)
         score, show = self._2opt_next(self.best_score, X)
         self.best_score, self.best_show = score, show

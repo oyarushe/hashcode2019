@@ -1,5 +1,6 @@
 import sys
 import os
+import time
 from path import INPUT_PATH
 from configs.logger import print
 from alg.ls import LSAlg
@@ -41,6 +42,22 @@ def read_file(file_in):
 if __name__ == '__main__':
     photos = read_file(IN_FILE)
 
+    print(f"File {IN_FILE} loaded")
+
     ls = LSAlg(photos)
+
+    print("LS initiated")
+
+    start = time.time()
+
     ls.solve()
+
+    long = time.time() - start
+
+    print(f"""
+    Local search: 
+     - score: {ls.best_score}
+     - time: {long}
+    """)
+
     ls.output(ls.best_show)
