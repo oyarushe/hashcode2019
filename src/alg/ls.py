@@ -1,12 +1,13 @@
+from alg.base import BaseAlg
 from entities.slide import Slide
 
 
-class LSAlg:
-    def __init__(self, P, T):
+class LSAlg(BaseAlg):
+    def __init__(self, P):
         self.P = P
         self.N = len(P)
-        self.T = T
-        self.best = 0
+        self.best_score = 0
+        self.best_show = []
 
     def _first_set(self):
         X = []
@@ -16,12 +17,12 @@ class LSAlg:
                 X.append(Slide(p))
             elif p.t == 'V':
                 if not last_v_slide:
-                    last_v_slide = Slide(p)
+                    last_v_slide = Slide(p, _type=Slide.TYPE_COMBINED)
                     X.append(last_v_slide)
                 else:
                     last_v_slide.add_photo(p)
-                    X.append(Slide)
-
+                    last_v_slide = None
+        return X
 
     def _2opt_next(self, best, current_path):
         n = len(self.D)
@@ -37,10 +38,5 @@ class LSAlg:
         return best, current_path
 
     def solve(self, *args, **kwargs):
-        pass
-
-    def score(self, X):
-        raise NotImplementedError
-
-    def output(self, *args, **kwargs):
-        raise NotImplementedError
+        X = self._first_set()
+        self.best_score = self.score(X)
