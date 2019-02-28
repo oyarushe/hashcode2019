@@ -33,7 +33,7 @@ class LSAlg(BaseAlg):
                 score = self.score(new_path)
                 if score > best:
                     # update the solution history
-                    print("New best: {score} (+{score - best})")
+                    print(f"New best: {score} (+{score - best})")
                     return self._2opt_next(score, new_path)
         return best, current
 
