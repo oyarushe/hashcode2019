@@ -43,3 +43,4 @@ if __name__ == '__main__':
 
     ls = LSAlg(photos)
     ls.solve()
+    ls.output(ls.best_show)
