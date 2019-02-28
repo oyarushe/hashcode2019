@@ -27,7 +27,7 @@ class LSAlg(BaseAlg):
         return X
 
     def _2opt_next(self, best, current):
-        if time.time() - self.timer > 20:
+        if time.time() - self.timer > 60:
             self.output(current)
             print("Dumped")
             self.timer = time.time()
