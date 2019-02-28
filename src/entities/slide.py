@@ -1,17 +1,16 @@
 class Slide:
-    TYPE_COMBINED = 1
-    TYPE_SINGLE = 2
+    TYPE_COMBINED = 'C'
+    TYPE_SINGLE = 'S'
 
-    def __init__(self, *photos):
-        if len(photos) == 1:
+    def __init__(self, *photos, _type=TYPE_SINGLE):
+        if _type == self.TYPE_SINGLE:
             self.tags = photos[0].tags
             self.type = self.TYPE_SINGLE
-        elif len(photos) == 2:
-            self.tags = photos[0].tags.union(photos[1].tags)
+        elif _type == self.TYPE_COMBINED:
+            self.tags = photos[0].tags.union(photos[1].tags) if len(photos) == 2 else photos[0].tags
+            # for prepared vertical slides with one photo
             self.type = self.TYPE_COMBINED
-        else:
-            raise Exception("Invalid slide")
-        self.photos = photos
+        self.photos = list(photos)
 
     def add_photo(self, p):
         if len(self.photos) != 1:
@@ -19,3 +18,6 @@ class Slide:
         self.photos.append(p)
         self.type = self.TYPE_COMBINED
         self.tags = self.tags.union(p.tags)
+
+    def __repr__(self):
+        return f"Slide ({self.type}, {len(self.photos)})"

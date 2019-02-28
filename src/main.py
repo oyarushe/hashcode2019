@@ -2,6 +2,7 @@ import sys
 import os
 from path import INPUT_PATH
 from configs.logger import print
+from alg.ls import LSAlg
 
 IN_FILE = os.path.join(INPUT_PATH, sys.argv[1])
 
@@ -34,9 +35,11 @@ def read_file(file_in):
         if s_l[0] == 'V':
             t_v += 1
 
-    print(t_v)
     return photos
 
 
 if __name__ == '__main__':
     photos = read_file(IN_FILE)
+
+    ls = LSAlg(photos)
+    ls.solve()
