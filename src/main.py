@@ -25,9 +25,15 @@ def read_file(file_in):
     with open(file_in) as f:
         l = f.readlines()
 
+    t_v = 0
+
     for line in l[1:]:
         s_l = line.split()
         photos.append(Photo(s_l[0], set(s_l[2:])))
+        if s_l[0] == 'V':
+            t_v += 1
+
+    print(t_v)
     return photos
 
 
