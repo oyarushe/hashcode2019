@@ -24,19 +24,20 @@ class LSAlg(BaseAlg):
                     last_v_slide = None
         return X
 
-    def _2opt_next(self, best, current_path):
-        n = len(self.D)
+    def _2opt_next(self, best, current):
+        n = len(current)
         for i in range(1, n - 1):
             for j in range(i + 2, n + 1):
-                new_path = current_path[:]
-                new_path[i:j] = current_path[j - 1:i - 1:-1]
-                if self.score(new_path) < best:
+                new_path = current[:]
+                new_path[i:j] = current[j - 1:i - 1:-1]
+                if self.score(new_path) > best:
                     # update the solution history
-                    self.progress.append(new_path)
 
                     return self._2opt_next(self.score(new_path), new_path)
-        return best, current_path
+        return best, current
 
     def solve(self, *args, **kwargs):
         X = self._first_set()
         self.best_score = self.score(X)
+        score, show = self._2opt_next(self.best_score, X)
+        self.best_score, self.best_show = score, show
