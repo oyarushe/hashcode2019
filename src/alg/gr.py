@@ -31,8 +31,8 @@ class GrAlg(BaseAlg):
         for x in X[:100]:
             show_n = show[:]
             show_n.append(x)
-            score = self.score(show_n)
-            if b_x is None or cur < self.score(show_n):
+            score = cur + self.score(show_n[-2:])
+            if b_x is None or cur < score:
                 b_x = x
                 cur = score
         print(f"{cur} {len(show)}")
